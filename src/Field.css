@@ -1,0 +1,16 @@
+#field{
+    display: grid;
+    place-content: center;
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(1, 400px);
+    grid-template-rows: repeat(4, 100px);
+    background-color: #e6a876;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.tileLine {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+}

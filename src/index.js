@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Board from './Board';
 import reportWebVitals from './reportWebVitals';
+import Field from './Field'
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Board />
+    <Field tiles={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
