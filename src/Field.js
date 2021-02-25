@@ -1,6 +1,7 @@
 import React from 'react';
 import './Field.css';
 import Tile from './Tile'
+import {makeLines} from './redux/reducers/arrayTransformation'
 
 export default function Field(props){
     return(
@@ -18,13 +19,4 @@ export default function Field(props){
             }
         </div>
         )
-    function makeLines(){
-        let lines = [];
-            props.tiles.forEach((value, index) => {
-            let lineIndex = Math.floor(index / 4);
-            lines[lineIndex] = lines[lineIndex] || [];
-            lines[lineIndex].push(value);
-        });
-        return lines;
-    }
 }
