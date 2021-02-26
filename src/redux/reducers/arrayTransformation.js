@@ -1,6 +1,6 @@
 function makeLines(array){
     let lines = [];
-        arr.forEach((value, index) => {
+    array.forEach((value, index) => {
         let lineIndex = Math.floor(index / 4);
         lines[lineIndex] = lines[lineIndex] || [];
         lines[lineIndex].push(value);
@@ -15,8 +15,8 @@ function rotate(arr, times = 1){
 }
   
 function sum(array){
-    const rowLength = arr[0].length,
-        changedArr = [].concat(arr);
+    const rowLength = array[0].length,
+        changedArr = [].concat(array);
     for (let i = 0; i < rowLength - 1; i++){
         let currentRow = changedArr[i],
         nextRow = changedArr[i + 1];
@@ -47,10 +47,20 @@ function putRandomNumber(array){
     }
     const insertIndex = getRandomInt(10),
     currentNumb = randomNumb[insertIndex],
-    possiblePlace = getRandomInt(possibleIndexes.length);
+    possiblePlace = getRandomInt(possibleIndexes.length),
     currentPlace = possibleIndexes[possiblePlace];
     array[currentPlace] = currentNumb;
     return array;
 }
 
+function checkPossibleMove(defaultArray, changedArray){
+    for (let i = 0; i < defaultArray.length; i++){
+    if (defaultArray[i] !== changedArray[i]) return true
+    }
+}
+
+function isWin(array){
+    let result = array.filter((value) => value === 2048);
+    return result.length !== 0 ? false : true;
+}
     export {sum, rotate, findEmpties, makeLines};

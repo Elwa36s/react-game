@@ -1,13 +1,52 @@
 .tile {
     display: grid;
     place-content: center;
-    border: 2px solid #4d4c4c;
+    border: 1px solid #4d4c4c;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: #89aeb4;
-    margin: 1px;
+    margin: 3px;
     user-select: none;
+    font-size: 30px;
+    text-shadow: 1px 1px 1px #3d4042;
+    color: #90908f;
+    font-weight: bold;
+    box-shadow: 0 0 4px rgba(23, 23, 18, 1);
 }
 .tile-0{
-    color: rgba(0,0,0,0);
+    font-size: 0;
+    color: rgba(202, 164, 121, 0);
+    background-color: #f0e4d3e0
+}
+.tile-2{
+    background-color: #faddb1fa;
+}
+.tile-4{
+    background-color: #fae1dd;
+}
+.tile-8{
+    background-color: #e4a59b;
+}
+.tile-16{
+    background-color: #d94435;
+}
+.tile-32{
+    background-color: #6a1a11;
+}
+.tile-64{
+    background-color: #0086f8;
+}
+.tile-128{
+    background-color: #9fb4b8;
+}
+.tile-256{
+    background-color: #ff8174;
+}
+.tile-512{
+    background-color: #492d91;
+}.tile-1024{
+    background-color: #2a143c;
+}
+.tile-2048{
+    background-color: #fa3d8a;
 }

@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: repeat(1, 400px);
     grid-template-rows: repeat(4, 100px);
-    background-color: #e6a876;
+    background-color: #a3a3a3;
     border-radius: 5px;
     box-sizing: border-box;
 }

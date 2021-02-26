@@ -1,6 +1,6 @@
 import initialState from "../initialState";
 import {UP, DOWN, LEFT, RIGHT} from '../actions/actions'
-import {sum, rotate, findEmpties, makeLines} from './arrayTransformation'
+import {sum, rotate, makeLines} from './arrayTransformation'
 
 const fieldReducer = (state = initialState.tiles, action) => {
     const arr = [].concat(state),

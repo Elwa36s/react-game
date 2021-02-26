@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux'
-import reducer from './redux/reducers/reducer'
+import fieldReducer from './redux/reducers/reducer'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Field from './Field'
@@ -13,7 +12,7 @@ import store from './redux/store'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Field tiles={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}/>
+      <Field tiles={[2048,1024,512,256,4,0,64,2,8,0,4,0,32,128,0,16]}/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
