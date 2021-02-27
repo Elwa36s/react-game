@@ -6,3 +6,4 @@ function initGame(){
     tiles = putRandomNumber(tiles);
     return tiles;
 }
+export {initGame};

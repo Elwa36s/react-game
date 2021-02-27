@@ -1,4 +1,4 @@
-import {UP, DOWN, LEFT, RIGHT} from './actions'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME} from './actionType'
 
 function moveUp(){
     return {
@@ -27,4 +27,9 @@ function moveRight(){
     };
 };
 
-export  {moveUp, moveDown, moveLeft, moveRight};
+function initGame(){
+    return {
+        type: INIT_GAME,
+    };
+}
+export  {moveUp, moveDown, moveLeft, moveRight, initGame};

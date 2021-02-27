@@ -1,3 +1,5 @@
+import {initGame} from './gameLogic'
+
 function makeLines(array){
     let lines = [];
     array.forEach((value, index) => {
@@ -19,11 +21,21 @@ function sum(array){
         changedArr = [].concat(array);
     for (let i = 0; i < rowLength - 1; i++){
         let currentRow = changedArr[i],
-        nextRow = changedArr[i + 1];
+        nextRow = changedArr[i + 1];        
         for(let j = 0; j< rowLength; j++){
             if(currentRow[j] === nextRow[j] || currentRow[j] === 0){
-                currentRow[j] += nextRow[j];
-                nextRow[j] = 0;
+                if (currentRow[j] === 0 && i >= 1){
+                    for (let k = i-1; k >= 0; k--){
+                        let prevRow = changedArr[k];
+                        if(prevRow[j] === 0 || prevRow[j] === nextRow[j]){
+                            prevRow[j] += nextRow[j];
+                            nextRow[j] = 0;
+                        }
+                    }
+                } else {
+                    currentRow[j] += nextRow[j];
+                    nextRow[j] = 0;
+                }
             }
         }
     }
@@ -33,13 +45,16 @@ function sum(array){
 function findEmpties(array){
     let emptyIndex = [];
     array.forEach((value, index) => {if(value === 0){emptyIndex.push(index)}})
+    if (emptyIndex.length === 0) {
+        gameLose();
+        return initGame();
+    }
     return emptyIndex;
 }
 
 
 function putRandomNumber(array){
     const possibleIndexes = findEmpties(array);
-    console.log('possible - ' + possibleIndexes)
     const randomNumb = [2, 4, 2, 2, 2, 2, 2, 2, 4, 2];
     
     function getRandomInt(max) {
@@ -63,4 +78,7 @@ function isWin(array){
     let result = array.filter((value) => value === 2048);
     return result.length !== 0 ? false : true;
 }
-    export {sum, rotate, findEmpties, makeLines};
+function gameLose(){
+    
+}
+    export {sum, rotate, findEmpties, makeLines, checkPossibleMove, putRandomNumber};
