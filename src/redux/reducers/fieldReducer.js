@@ -17,11 +17,13 @@ const fieldReducer = (state = initialState.tiles, action) => {
         arrLined = makeLines(arr);
     switch(action.type) {
         case UP: {
-
-            let result = sum(arrLined).flat(1);
+            const num = action.payload,
+                back = 4 - num,
+                swappedArr = rotate(arrLined, num),
+                summedArr = sum(swappedArr);
+            let result = rotate(summedArr, back).flat(1);
             if (checkPossibleMove(arr, result)){
                 result = putRandomNumber(result);
-                console.log('***STATE BACK***')
                 return result
             }
         return state;
@@ -52,11 +54,8 @@ const fieldReducer = (state = initialState.tiles, action) => {
                 
         };
         case RIGHT: {
-            const num = action.payload,
-                back = 4 - num,
-                swappedArr = rotate(arrLined, num),
-                summedArr = sum(swappedArr);
-            let result = rotate(summedArr, back).flat(1);
+            const summedArr = sum(arrLined);
+            let result = summedArr.flat(1);
                 if (checkPossibleMove(arr, result)){
                     result = putRandomNumber(result);
                     return result

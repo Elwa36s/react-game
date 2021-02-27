@@ -3,27 +3,27 @@ import {UP, DOWN, LEFT, RIGHT, INIT_GAME} from './actionType'
 function moveUp(){
     return {
         type: UP,
-        payload: 4
+        payload: 1
     };
 };
 function moveDown(){
     return {
         type: DOWN,
-        payload : 2
+        payload : 3
     };
 };
 
 function moveLeft(){
     return {
         type: LEFT,
-        payload : 1
+        payload : 2
     };
 };
 
 function moveRight(){
     return {
         type: RIGHT,
-        payload : 3
+        payload : 4
     };
 };
 

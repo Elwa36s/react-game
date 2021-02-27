@@ -13,35 +13,43 @@ function makeLines(array){
 function rotate(arr, times = 1){
     const check = times - 1;
     const rotatedArr = arr[0].map((item, idx) => arr.map((row) => row[idx]).reverse());
+    if (check === 0) console.log('rotatedArray = ' + rotatedArr);
     return check === 0 ? rotatedArr : rotate(rotatedArr, check);
 }
   
-function sum(array){
-    const rowLength = array[0].length,
-        changedArr = [].concat(array);
-    for (let i = 0; i < rowLength - 1; i++){
-        let currentRow = changedArr[i],
-        nextRow = changedArr[i + 1];        
-        for(let j = 0; j< rowLength; j++){
-            if(currentRow[j] === nextRow[j] || currentRow[j] === 0){
-                if (currentRow[j] === 0 && i >= 1){
-                    for (let k = i-1; k >= 0; k--){
-                        let prevRow = changedArr[k];
-                        if(prevRow[j] === 0 || prevRow[j] === nextRow[j]){
-                            prevRow[j] += nextRow[j];
-                            nextRow[j] = 0;
-                        }
-                    }
-                } else {
-                    currentRow[j] += nextRow[j];
-                    nextRow[j] = 0;
-                }
-            }
+function sum(arr){
+    const result = [];
+    const summedArr = [];
+    for(let i = 0; i < 4; i++){
+    let row = arr[i];
+    row = row.filter(val => (val !== 0));
+    console.log(`filteredRow = ${row}`)
+        for(let j = row.length; j >= 0; j--){
+            if(row[j] === row[j-1]){
+                if(!isNaN(row[j-1])){
+            row[j] += row[j-1] + 1;
+            row[j-1] = 0
+            row = row.filter(val => (val !== 0));
+            }}
         }
+        console.log('summedRow = ' + row)
+        row = row.map((numb)=>(numb % 2 === 1) ? numb -= 1 : numb);
+         
+    summedArr.push(row);
     }
-    return changedArr;
+    for (let i = 0; i < 4; i++){
+        let row = summedArr[i];
+        result.push(unshiftZeros(row));
+        console.log(`result = ${result}`)
+    }
+    return result
 }
-  
+
+function unshiftZeros(array){
+    if (array.length < 4) array.unshift(0);
+    return array.length === 4 ? array : unshiftZeros(array);
+}
+
 function findEmpties(array){
     let emptyIndex = [];
     array.forEach((value, index) => {if(value === 0){emptyIndex.push(index)}})
