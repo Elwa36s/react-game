@@ -1,4 +1,4 @@
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME} from './actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE, CHECK_WIN, LOAD_LAST_GAME} from './actionType'
 
 function moveUp(){
     return {
@@ -32,4 +32,30 @@ function initGame(){
         type: INIT_GAME,
     };
 }
-export  {moveUp, moveDown, moveLeft, moveRight, initGame};
+
+function checkForLose(){
+    return {
+        type: CHECK_LOSE,
+    };
+}
+
+function checkForWin(){
+    return {
+        type: CHECK_WIN,
+    };
+}
+
+function calcScore(){
+    return {
+        type: CHECK_SCORE,
+    };
+}
+
+function loadGame(){
+    return {
+        type: LOAD_LAST_GAME,
+    }
+}
+
+
+export  {moveUp, moveDown, moveLeft, moveRight, initGame, checkForLose, checkForWin, calcScore, loadGame};

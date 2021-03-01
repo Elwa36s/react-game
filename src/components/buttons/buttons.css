@@ -1,0 +1,30 @@
+button{
+    border: none;
+    border-radius: 5px;
+    background-color: #a3a3a3;
+    color: rgb(36, 35, 35);
+    font-weight: bold;
+    width: 100px;
+    height: 30px;
+    margin: 0 2%;
+}
+button:hover {
+cursor: pointer;
+box-shadow: 2px 2px 5px #423f3f;
+background-color: #c4c1c1;
+}
+button:focus{
+    outline: none;
+}
+button:active{
+    transform: scale(0.95);
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+#btns {
+margin: 2% auto;
+width: 400px;
+display: flex;
+flex-direction: row;
+}

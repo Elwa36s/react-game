@@ -13,7 +13,6 @@ function makeLines(array){
 function rotate(arr, times = 1){
     const check = times - 1;
     const rotatedArr = arr[0].map((item, idx) => arr.map((row) => row[idx]).reverse());
-    if (check === 0) console.log('rotatedArray = ' + rotatedArr);
     return check === 0 ? rotatedArr : rotate(rotatedArr, check);
 }
   
@@ -23,7 +22,6 @@ function sum(arr){
     for(let i = 0; i < 4; i++){
     let row = arr[i];
     row = row.filter(val => (val !== 0));
-    console.log(`filteredRow = ${row}`)
         for(let j = row.length; j >= 0; j--){
             if(row[j] === row[j-1]){
                 if(!isNaN(row[j-1])){
@@ -32,15 +30,12 @@ function sum(arr){
             row = row.filter(val => (val !== 0));
             }}
         }
-        console.log('summedRow = ' + row)
         row = row.map((numb)=>(numb % 2 === 1) ? numb -= 1 : numb);
-         
     summedArr.push(row);
     }
     for (let i = 0; i < 4; i++){
         let row = summedArr[i];
         result.push(unshiftZeros(row));
-        console.log(`result = ${result}`)
     }
     return result
 }
@@ -53,10 +48,6 @@ function unshiftZeros(array){
 function findEmpties(array){
     let emptyIndex = [];
     array.forEach((value, index) => {if(value === 0){emptyIndex.push(index)}})
-    if (emptyIndex.length === 0) {
-        gameLose();
-        return initGame();
-    }
     return emptyIndex;
 }
 
@@ -80,13 +71,5 @@ function checkPossibleMove(defaultArray, changedArray){
     for (let i = 0; i < defaultArray.length; i++){
     if (defaultArray[i] !== changedArray[i]) return true
     }
-}
-
-function isWin(array){
-    let result = array.filter((value) => value === 2048);
-    return result.length !== 0 ? false : true;
-}
-function gameLose(){
-    
 }
     export {sum, rotate, findEmpties, makeLines, checkPossibleMove, putRandomNumber};

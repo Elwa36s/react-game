@@ -1,15 +1,39 @@
 #field{
     display: grid;
+    margin: 0 auto;
     place-content: center;
     width: 400px;
     height: 400px;
     display: grid;
     grid-template-columns: repeat(1, 400px);
     grid-template-rows: repeat(4, 100px);
-    background-color: #a3a3a3;
+
     border-radius: 5px;
     box-sizing: border-box;
+
 }
+.endScreen{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding: 10px;
+}
+#loseScreen{
+    background-color: #b81515;
+}
+#winScreen{
+    background-color: #64c27b;
+    color: #c6d3d2;
+}
+
 .tileLine {
     display: grid;
     grid-template-columns: repeat(4, 100px);

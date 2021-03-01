@@ -1,20 +1,26 @@
-
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME} from '../actions/actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN, CHECK_LOSE, CHECK_SCORE} from '../actions/actionType'
 import {sum, rotate, makeLines, checkPossibleMove, putRandomNumber} from './arrayTransformation'
+import {initGame, isWin, isLose, calculateScore} from './gameLogic'
 
-const  initialState = {
-    tiles : [0,0,2,0,4,0,0,0,0,0,0,0,0,0,0,0],
-    score : {
+export const initialState = {
+    tiles : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     currentScore : 0,
     bestScore : 0,
-    moves : 0
-    },
+    moves : 0,
+    win : false,
+    lose : false,
+    impossibleMoves : [],
 };
 
-const fieldReducer = (state = initialState.tiles, action) => {
-    console.log(state)
-    const arr = [].concat(state),
-        arrLined = makeLines(arr);
+const fieldReducer = (state = initialState, action) => {
+    console.log(state.win)
+    const tiles = state.tiles;
+    let moves = state.moves;
+    const arr = [].concat(tiles);
+    const arrLined = makeLines(arr);
+    const impossible = state.impossibleMoves;
+
+    const bestScore = state.bestScore;
     switch(action.type) {
         case UP: {
             const num = action.payload,
@@ -24,9 +30,11 @@ const fieldReducer = (state = initialState.tiles, action) => {
             let result = rotate(summedArr, back).flat(1);
             if (checkPossibleMove(arr, result)){
                 result = putRandomNumber(result);
-                return result
+                moves += 1;
+            return {...state, tiles : result, moves : moves, impossibleMoves : []}
             }
-        return state;
+        impossible.push('up');
+        return {...state, impossibleMoves : impossible};
         };
         case DOWN: {
             const num = action.payload,
@@ -36,9 +44,11 @@ const fieldReducer = (state = initialState.tiles, action) => {
             let result = rotate(summedArr, back).flat(1);
                 if (checkPossibleMove(arr, result)){
                     result = putRandomNumber(result);
-                    return result
+                    moves += 1;
+                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
                 }
-            return state
+            impossible.push('down');
+            return {...state, impossibleMoves : impossible};
         };
         case LEFT: {
             const num = action.payload,
@@ -48,9 +58,11 @@ const fieldReducer = (state = initialState.tiles, action) => {
             let result = rotate(summedArr, back).flat(1);
                 if (checkPossibleMove(arr, result)){
                     result = putRandomNumber(result);
-                    return result
+                    moves += 1;
+                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
                 }
-            return state
+                impossible.push('left');
+            return {...state, impossibleMoves : impossible};
                 
         };
         case RIGHT: {
@@ -58,16 +70,30 @@ const fieldReducer = (state = initialState.tiles, action) => {
             let result = summedArr.flat(1);
                 if (checkPossibleMove(arr, result)){
                     result = putRandomNumber(result);
-                    return result
+                    moves += 1;
+                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
                 }
-            return state
+                impossible.push('right')
+            return {...state, impossibleMoves : impossible};
         };
         case INIT_GAME: {
-            const emptyField = Array(16);
-            emptyField.map(tile => 0);
-            let result = putRandomNumber(emptyField);
-            return result
+            const result = initGame();
+            return {...state, tiles : result, moves: 0, score : 0, win : 0, lose : 0}
         }
+
+        case CHECK_WIN: {
+            const win = isWin(tiles);
+            return {...state, win : win};
+        }
+        case CHECK_LOSE: {
+            const lose = isLose(state.impossibleMoves);
+            return {...state, lose : lose};
+        }
+        case CHECK_SCORE: {
+            const currentScore = calculateScore(tiles);
+            return currentScore > bestScore ? {...state, currentScore, bestScore : currentScore} : {...state, currentScore};
+        }
+
         default:
             return state;
 
