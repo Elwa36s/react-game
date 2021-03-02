@@ -1,5 +1,3 @@
-import {initGame} from './gameLogic'
-
 function makeLines(array){
     let lines = [];
     array.forEach((value, index) => {

@@ -1,8 +1,8 @@
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN, CHECK_LOSE, CHECK_SCORE} from '../actions/actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN, CHECK_LOSE, CHECK_SCORE, LOAD_LAST_GAME} from '../actions/actionType'
 import {sum, rotate, makeLines, checkPossibleMove, putRandomNumber} from './arrayTransformation'
 import {initGame, isWin, isLose, calculateScore} from './gameLogic'
 
-export const initialState = {
+const initialState = {
     tiles : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     currentScore : 0,
     bestScore : 0,
@@ -12,15 +12,15 @@ export const initialState = {
     impossibleMoves : [],
 };
 
+
 const fieldReducer = (state = initialState, action) => {
-    console.log(state.win)
     const tiles = state.tiles;
     let moves = state.moves;
     const arr = [].concat(tiles);
     const arrLined = makeLines(arr);
     const impossible = state.impossibleMoves;
-
     const bestScore = state.bestScore;
+    
     switch(action.type) {
         case UP: {
             const num = action.payload,
@@ -73,12 +73,12 @@ const fieldReducer = (state = initialState, action) => {
                     moves += 1;
                     return {...state, tiles : result, moves : moves, impossibleMoves : []}
                 }
-                impossible.push('right')
+                impossible.push('right');
             return {...state, impossibleMoves : impossible};
         };
         case INIT_GAME: {
             const result = initGame();
-            return {...state, tiles : result, moves: 0, score : 0, win : 0, lose : 0}
+            return {...state, tiles : result, moves: 0, currentScore : 0, win : false, lose : false}
         }
 
         case CHECK_WIN: {
@@ -86,12 +86,17 @@ const fieldReducer = (state = initialState, action) => {
             return {...state, win : win};
         }
         case CHECK_LOSE: {
-            const lose = isLose(state.impossibleMoves);
+            const lose = isLose(tiles);
             return {...state, lose : lose};
         }
         case CHECK_SCORE: {
             const currentScore = calculateScore(tiles);
             return currentScore > bestScore ? {...state, currentScore, bestScore : currentScore} : {...state, currentScore};
+        }
+        case LOAD_LAST_GAME: {
+            const loadedState = JSON.parse(localStorage.getItem('lastState'));
+            return (loadedState !== null) ? {...state, ...loadedState} : state;
+            
         }
 
         default:

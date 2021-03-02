@@ -1,4 +1,4 @@
-import {putRandomNumber} from './arrayTransformation'
+import {putRandomNumber, findEmpties} from './arrayTransformation'
 
 function initGame(){
     const emptyField = [];
@@ -22,9 +22,17 @@ function isWin(array){
 }
 
 function isLose(array){
-    let directions = new Set(array);
-     directions = new Array(directions);
-    console.log(`directions.length = ${directions.length}`)
-    return (directions.length === 4) ? true : false
+    const empty = findEmpties(array);
+    if (empty.length === 0){
+        const result = [];
+        for(let i = 0; i < array.length; i++){
+           if (array[i] === array[i+1]) result.push(array[i]);
+            if(i <= 12){
+                if (array[i] === array[i+4]) result.push(array[i]);
+            }
+        }
+        return (result.length === 0) ? true : false;
+    }
+    return false
 }
 export {initGame, calculateScore, isLose, isWin};

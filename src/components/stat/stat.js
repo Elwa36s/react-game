@@ -6,12 +6,10 @@ import {checkForLose, checkForWin, calcScore} from '../../redux/actions/actionCr
 
 function Stat(props){
     useEffect(()=>{
-        document.addEventListener('keydown', ()=>{
-        props.checkForLose();
         props.checkForWin();
+        props.checkForLose();
         props.calcScore();  
-        })
-        }
+        }, [props]
         )
     return(
         <div id='stat'>

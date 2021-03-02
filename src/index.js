@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import gameReducers from './redux/reducers/reducer'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { moveLeft, moveRight } from './redux/actions/actionCreators';
 import { createStore } from 'redux';
 import App from './components/app/app'
 import { compose } from 'redux';
@@ -12,7 +11,6 @@ import { compose } from 'redux';
 const store = createStore(gameReducers, compose(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   ))
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
