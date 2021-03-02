@@ -1,4 +1,4 @@
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE, CHECK_WIN, LOAD_LAST_GAME} from './actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE, CHECK_WIN, LOAD_LAST_GAME, SETTINGS, MUTE_SOUND} from './actionType'
 
 function moveUp(){
     return {
@@ -57,5 +57,16 @@ function loadGame(){
     }
 }
 
+function settings(){
+    return {
+        type: SETTINGS,
+    }
+}
 
-export  {moveUp, moveDown, moveLeft, moveRight, initGame, checkForLose, checkForWin, calcScore, loadGame};
+function mute(){
+    return {
+        type: MUTE_SOUND,
+    }
+}
+
+export  {moveUp, moveDown, moveLeft, moveRight, initGame, checkForLose, checkForWin, calcScore, loadGame, settings, mute};

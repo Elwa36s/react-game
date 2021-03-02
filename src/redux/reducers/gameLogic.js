@@ -17,7 +17,6 @@ function calculateScore(array){
 
 function isWin(array){
     let result = array.filter((value) => value === 2048);
-    result.length === 0 ? console.log('no win') : console.log('win')
     return result.length === 0 ? false : true;
 }
 

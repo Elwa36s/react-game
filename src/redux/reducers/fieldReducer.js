@@ -9,7 +9,8 @@ const initialState = {
     moves : 0,
     win : false,
     lose : false,
-    impossibleMoves : [],
+    top10 : [],
+    gameStop: false,
 };
 
 
@@ -18,7 +19,6 @@ const fieldReducer = (state = initialState, action) => {
     let moves = state.moves;
     const arr = [].concat(tiles);
     const arrLined = makeLines(arr);
-    const impossible = state.impossibleMoves;
     const bestScore = state.bestScore;
     
     switch(action.type) {
@@ -28,13 +28,12 @@ const fieldReducer = (state = initialState, action) => {
                 swappedArr = rotate(arrLined, num),
                 summedArr = sum(swappedArr);
             let result = rotate(summedArr, back).flat(1);
-            if (checkPossibleMove(arr, result)){
+            if (checkPossibleMove(arr, result) && !state.gameStop){
                 result = putRandomNumber(result);
                 moves += 1;
-            return {...state, tiles : result, moves : moves, impossibleMoves : []}
+            return {...state, tiles : result, moves : moves}
             }
-        impossible.push('up');
-        return {...state, impossibleMoves : impossible};
+        return {...state};
         };
         case DOWN: {
             const num = action.payload,
@@ -42,13 +41,12 @@ const fieldReducer = (state = initialState, action) => {
                 swappedArr = rotate(arrLined, num),
                 summedArr = sum(swappedArr);
             let result = rotate(summedArr, back).flat(1);
-                if (checkPossibleMove(arr, result)){
+                if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
-                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
+                    return {...state, tiles : result, moves : moves}
                 }
-            impossible.push('down');
-            return {...state, impossibleMoves : impossible};
+            return {...state};
         };
         case LEFT: {
             const num = action.payload,
@@ -56,38 +54,40 @@ const fieldReducer = (state = initialState, action) => {
                 swappedArr = rotate(arrLined, num),
                 summedArr = sum(swappedArr);
             let result = rotate(summedArr, back).flat(1);
-                if (checkPossibleMove(arr, result)){
+                if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
-                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
+                    return {...state, tiles : result, moves : moves}
                 }
-                impossible.push('left');
-            return {...state, impossibleMoves : impossible};
+            return {...state};
                 
         };
         case RIGHT: {
             const summedArr = sum(arrLined);
             let result = summedArr.flat(1);
-                if (checkPossibleMove(arr, result)){
+                if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
-                    return {...state, tiles : result, moves : moves, impossibleMoves : []}
+                    return {...state, tiles : result, moves : moves}
                 }
-                impossible.push('right');
-            return {...state, impossibleMoves : impossible};
+            return {...state};
         };
         case INIT_GAME: {
             const result = initGame();
-            return {...state, tiles : result, moves: 0, currentScore : 0, win : false, lose : false}
+            return {...state, tiles : result, moves: 0, currentScore : 0, win : false, lose : false, gameStop: false}
         }
 
         case CHECK_WIN: {
             const win = isWin(tiles);
-            return {...state, win : win};
+            const bestResults = state.top10;
+            if (win) bestResults.push({score : state.currentScore, moves : state.moves});
+         return win ? {...state, win : win, gameStop : win, top10 : bestResults} : {...state};
         }
         case CHECK_LOSE: {
             const lose = isLose(tiles);
-            return {...state, lose : lose};
+            const bestResults = state.top10;
+            if (lose) bestResults.push({score : state.currentScore, moves : state.moves});
+            return lose ? {...state, lose : lose, gameStop : lose, top10 : bestResults} : {...state};
         }
         case CHECK_SCORE: {
             const currentScore = calculateScore(tiles);
@@ -96,9 +96,7 @@ const fieldReducer = (state = initialState, action) => {
         case LOAD_LAST_GAME: {
             const loadedState = JSON.parse(localStorage.getItem('lastState'));
             return (loadedState !== null) ? {...state, ...loadedState} : state;
-            
         }
-
         default:
             return state;
 

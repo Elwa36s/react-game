@@ -57,6 +57,7 @@ function putRandomNumber(array){
     function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));          
     }
+
     const insertIndex = getRandomInt(10),
     currentNumb = randomNumb[insertIndex],
     possiblePlace = getRandomInt(possibleIndexes.length),

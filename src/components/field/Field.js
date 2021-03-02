@@ -51,7 +51,7 @@ function Field(props){
                 (props.loadGame());
                 break;
               
-              default:
+              default: break;
         }
     }
     const saveGame = (state) => {
