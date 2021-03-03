@@ -1,0 +1,35 @@
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+  };
+  a:hover{
+    cursor: pointer;
+    font-weight: bold;
+  }
+  #information{
+    height: 100px;
+    margin: 0 auto;
+    flex-direction: row;
+    max-width: 600px;
+    min-width: 500px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+  }
+  #school, #me{
+    width: fit-content;
+  }
+  #rsLink{
+    display: block;
+    width: 200px;
+    height: 75px;
+  }
+  #rsLink:hover{
+transform: scale(1.1);
+  }
+  #me:hover{
+    transform: scale(1.1);
+    text-shadow: 1px 1px 4px black;
+    cursor: pointer;
+  }

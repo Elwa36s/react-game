@@ -2,6 +2,7 @@ import React from 'react';
 import Field from '../field/Field';
 import Buttons from '../buttons/buttons';
 import Stat from '../stat/stat';
+import Footer from '../footer/footer'
 import './app.css'
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
         <Buttons />
         <Stat />
         <Field />
+        <Footer />
         </div>
     )
 }
