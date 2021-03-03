@@ -1,21 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './buttons.css'
-import {initGame, settings, mute} from '../../redux/actions/actionCreators'
+import {initGame, settings, mute, leaderBoard, resetScore} from '../../redux/actions/actionCreators'
 
 function Buttons(props){
+    function sort(arr){
+        let newArr = arr.sort((a, b) => {return (b.score - a.score)});
+        return newArr.slice(0, 10);
+    }
     return (
         <div id='btns'>
             <button type='button' onClick={props.initGame}>New game</button>
             <button type='button' onClick={props.settings}>Settings</button>
-{props.modal && (
-<div id='settings'>
-<button type='button' className='set'>Show best scores</button>
-<button type='button' className='set'>Reset statistics</button>
-<button type='button>' className='set' onClick={props.mute}>Sound {props.muted ? 'unmute' : 'mute'}</button>
-<button type='button' className='set' onClick={props.settings}>Close settings</button>
-</div>
-        )}
+            <p id='rules'>Use arrows or WASD to move, R - for new game</p>
+            {props.modal && (
+            <div id='settings'>
+            <button type='button' className='set' onClick={props.leaderBoard}>Show best scores</button>
+            <button type='button' className='set' onClick={props.resetScore}>Reset statistics</button>
+            <button type='button>' className='set' onClick={props.mute}>Sound on/off</button>
+            <button type='button' className='set' onClick={props.settings}>Close settings</button>
+            </div>
+            )}
+            {props.score && (<div id='leaderBoard'>
+                    <button type='button' className="closeSetts" onClick={props.leaderBoard}>&times;</button>
+                    {sort(props.top10).map((record, index) => {
+                    return <p className='top' key={index}>{index + 1}. {record.score} points in {record.moves} steps</p>})}
+                    </div>
+            )}
         </div>
         
     )
@@ -24,10 +35,11 @@ function Buttons(props){
 const mapStateToProps = state => {
     return {modal : state.buttons.settingsIsOpen,
             muted: state.buttons.muted,
-            score : state.buttons.score};
+            score : state.buttons.score,
+            top10 : state.field.top10};
 }
 
 const mapDispatchToProps = {
-    initGame, settings, mute
+    initGame, settings, mute, leaderBoard, resetScore
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

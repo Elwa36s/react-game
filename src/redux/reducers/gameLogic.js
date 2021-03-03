@@ -25,9 +25,15 @@ function isLose(array){
     if (empty.length === 0){
         const result = [];
         for(let i = 0; i < array.length; i++){
-           if (array[i] === array[i+1]) result.push(array[i]);
-            if(i <= 12){
-                if (array[i] === array[i+4]) result.push(array[i]);
+           if (array[i] === array[i+1]){
+               if (i !== 3 && i !== 7 && i !== 11){
+               result.push(array[i]);
+            }
+           } 
+            if(i <= 11){
+                if (array[i] === array[i+4]){
+                    result.push(array[i]);
+                } 
             }
         }
         return (result.length === 0) ? true : false;

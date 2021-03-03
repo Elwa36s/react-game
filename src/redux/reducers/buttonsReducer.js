@@ -1,19 +1,19 @@
-import {SETTINGS, SHOW_SCORE, MUTE_SOUND} from '../actions/actionType'
+import {SETTINGS, SHOW_SCORE} from '../actions/actionType'
 
 const initialState = {
     settingsIsOpen : false,
-    muted : false,
     score : false,
 };
+
 const buttonsReducer = (state = initialState, action) => {
     switch(action.type){
         case SETTINGS: {
             const modal = !state.settingsIsOpen;
             return {...state, settingsIsOpen : modal}
         }
-        case MUTE_SOUND: {
-            const isMuted = !state.muted;
-            return {...state, muted : isMuted}
+            case SHOW_SCORE: {
+            const score = !state.score;
+        return {...state, score : score}
         }
         default: return state;
     }

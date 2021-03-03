@@ -48,7 +48,7 @@ function Field(props){
                 (props.moveDown());
                 break;  
               case 82:
-                (props.loadGame());
+                (props.initGame());
                 break;
               
               default: break;
@@ -94,7 +94,7 @@ function Field(props){
 }
 
 const mapStateToProps = state => {
-     return {...state.field}
+     return {...state.field, muted : state.field.muted}
     };
 
 const mapDispatchToProps = {

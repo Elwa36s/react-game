@@ -7,10 +7,9 @@
     display: grid;
     grid-template-columns: repeat(1, 400px);
     grid-template-rows: repeat(4, 100px);
-
     border-radius: 5px;
     box-sizing: border-box;
-
+    min-width: 400px;
 }
 .endScreen{
     display: flex;

@@ -1,6 +1,16 @@
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN, CHECK_LOSE, CHECK_SCORE, LOAD_LAST_GAME} from '../actions/actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN,
+     CHECK_LOSE, CHECK_SCORE, LOAD_LAST_GAME, RESET_BEST_SCORE,
+     MUTE_SOUND} from '../actions/actionType'
 import {sum, rotate, makeLines, checkPossibleMove, putRandomNumber} from './arrayTransformation'
 import {initGame, isWin, isLose, calculateScore} from './gameLogic'
+
+import winSound from "../../assets/sounds/win.mp3";
+import loseSound from "../../assets/sounds/lose.mp3";
+import moveSound from "../../assets/sounds/keypress.mp3";
+
+const winGame = new Audio(winSound),
+    loseGame = new Audio(loseSound),
+    moveGame = new Audio(moveSound);
 
 const initialState = {
     tiles : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -11,6 +21,7 @@ const initialState = {
     lose : false,
     top10 : [],
     gameStop: false,
+    muted : false
 };
 
 
@@ -31,6 +42,7 @@ const fieldReducer = (state = initialState, action) => {
             if (checkPossibleMove(arr, result) && !state.gameStop){
                 result = putRandomNumber(result);
                 moves += 1;
+                if (!state.muted) moveGame.play();
             return {...state, tiles : result, moves : moves}
             }
         return {...state};
@@ -44,6 +56,7 @@ const fieldReducer = (state = initialState, action) => {
                 if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
+                    if (!state.muted) moveGame.play();
                     return {...state, tiles : result, moves : moves}
                 }
             return {...state};
@@ -57,6 +70,7 @@ const fieldReducer = (state = initialState, action) => {
                 if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
+                    if (!state.muted) moveGame.play();
                     return {...state, tiles : result, moves : moves}
                 }
             return {...state};
@@ -68,6 +82,7 @@ const fieldReducer = (state = initialState, action) => {
                 if (checkPossibleMove(arr, result) && !state.gameStop){
                     result = putRandomNumber(result);
                     moves += 1;
+                    if (!state.muted) moveGame.play();
                     return {...state, tiles : result, moves : moves}
                 }
             return {...state};
@@ -78,15 +93,24 @@ const fieldReducer = (state = initialState, action) => {
         }
 
         case CHECK_WIN: {
+            const wasWin = state.win;
             const win = isWin(tiles);
             const bestResults = state.top10;
-            if (win) bestResults.push({score : state.currentScore, moves : state.moves});
+            if (win !== wasWin){
+               bestResults.push({score : state.currentScore, moves : state.moves});
+               if (!state.muted) winGame.play();
+            }
+             
          return win ? {...state, win : win, gameStop : win, top10 : bestResults} : {...state};
         }
         case CHECK_LOSE: {
+            const lastLose = state.lose;
             const lose = isLose(tiles);
             const bestResults = state.top10;
-            if (lose) bestResults.push({score : state.currentScore, moves : state.moves});
+            if (lose !== lastLose){
+               bestResults.push({score : state.currentScore, moves : state.moves});
+               if (!state.muted) loseGame.play();
+            } 
             return lose ? {...state, lose : lose, gameStop : lose, top10 : bestResults} : {...state};
         }
         case CHECK_SCORE: {
@@ -96,6 +120,16 @@ const fieldReducer = (state = initialState, action) => {
         case LOAD_LAST_GAME: {
             const loadedState = JSON.parse(localStorage.getItem('lastState'));
             return (loadedState !== null) ? {...state, ...loadedState} : state;
+        }
+
+        case RESET_BEST_SCORE: {
+            const bestScore = 0;
+            const top10 = [];
+            return {...state, top10 : top10, bestScore : bestScore};
+        }
+        case MUTE_SOUND: {
+            const isMuted = !state.muted;
+            return {...state, muted : isMuted}
         }
         default:
             return state;

@@ -12,6 +12,7 @@
     padding: 0 2%;
     height: 30px;
     align-items: center;
+    min-width: 400px;
 }
 section {
     width: 200px;

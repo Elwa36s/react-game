@@ -7,6 +7,7 @@ button{
     width: 100px;
     height: 30px;
     margin: 0 2%;
+    font-family: 'Roboto', sans-serif;
 }
 button:hover {
 cursor: pointer;
@@ -28,6 +29,11 @@ width: 400px;
 display: flex;
 flex-direction: row;
 }
+#rules{
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
 #settings{
     display: flex;
     flex-direction: column;
@@ -35,7 +41,7 @@ flex-direction: row;
     margin: 0 auto;
     width: 400px;
     height: 400px;
-    top: 19%;
+    top: 20%;
     background-color: #423f3fdc;
     align-items: center;
 }
@@ -44,4 +50,29 @@ width: 300px;
 height: 50px;
 font-size: 15px;
 margin: 20px 0;
+font-family: 'Roboto', sans-serif;
+}
+
+#leaderBoard{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    top: 20%;
+    background-color: #746f6f;
+    align-items: center;
+    overflow: auto;
+}
+.top{
+    margin: 5px auto;
+    font-weight: bold;
+}
+.closeSetts {
+    position: relative;
+    top: 10px;
+    left: 180px;
+    width: 20px;
+    height: 20px;
 }

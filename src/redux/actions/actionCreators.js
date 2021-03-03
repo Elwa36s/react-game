@@ -1,4 +1,6 @@
-import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE, CHECK_WIN, LOAD_LAST_GAME, SETTINGS, MUTE_SOUND} from './actionType'
+import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE,
+     CHECK_WIN, LOAD_LAST_GAME, SETTINGS, MUTE_SOUND, SHOW_SCORE,
+     RESET_BEST_SCORE} from './actionType'
 
 function moveUp(){
     return {
@@ -69,4 +71,18 @@ function mute(){
     }
 }
 
-export  {moveUp, moveDown, moveLeft, moveRight, initGame, checkForLose, checkForWin, calcScore, loadGame, settings, mute};
+function leaderBoard(){
+    return {
+        type: SHOW_SCORE,
+    }
+}
+
+function resetScore(){
+    return {
+        type: RESET_BEST_SCORE,
+    }
+}
+
+export  {moveUp, moveDown, moveLeft, moveRight, initGame, checkForLose,
+     checkForWin, calcScore, loadGame, settings, mute, leaderBoard,
+     resetScore};
