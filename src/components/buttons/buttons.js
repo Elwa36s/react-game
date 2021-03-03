@@ -12,7 +12,7 @@ function Buttons(props){
         <div id='btns'>
             <button type='button' onClick={props.initGame}>New game</button>
             <button type='button' onClick={props.settings}>Settings</button>
-            <p id='rules'>Use arrows or WASD to move, R - for new game</p>
+            <p id='rules'>Use <strong>arrows</strong> or <strong>WASD</strong> to move, <strong>R</strong> - new game, <strong>F</strong> - fullscreen</p>
             {props.modal && (
             <div id='settings'>
             <button type='button' className='set' onClick={props.leaderBoard}>Show best scores</button>

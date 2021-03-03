@@ -4,9 +4,19 @@ import Tile from '../tile/Tile'
 import {makeLines} from '../../redux/reducers/arrayTransformation'
 import {connect} from 'react-redux'
 import {moveUp, moveDown, moveLeft, moveRight, initGame, loadGame} from '../../redux/actions/actionCreators'
+import { FULLSCREEN } from '../../redux/actions/actionType';
 
 
 function Field(props){
+  const fullscreen = (element) => {
+    if(element.requestFullScreen) {
+      element.requestFullScreen();
+    } else if(element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if(element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }
+  }
     useEffect(()=>{
         document.addEventListener('keydown', (e) => {eventHandler(e);
         });
@@ -50,10 +60,14 @@ function Field(props){
               case 82:
                 (props.initGame());
                 break;
-              
+              case 70:
+                const elem = document.getElementById('app');
+                fullscreen(elem);
+                break;
               default: break;
         }
     }
+
     const saveGame = (state) => {
       const currentState = JSON.stringify(state);
       localStorage.setItem('lastState', currentState);

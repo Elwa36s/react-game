@@ -1,6 +1,6 @@
 import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_WIN,
      CHECK_LOSE, CHECK_SCORE, LOAD_LAST_GAME, RESET_BEST_SCORE,
-     MUTE_SOUND} from '../actions/actionType'
+     MUTE_SOUND, FULLSCREEN} from '../actions/actionType'
 import {sum, rotate, makeLines, checkPossibleMove, putRandomNumber} from './arrayTransformation'
 import {initGame, isWin, isLose, calculateScore} from './gameLogic'
 
@@ -21,7 +21,7 @@ const initialState = {
     lose : false,
     top10 : [],
     gameStop: false,
-    muted : false
+    muted : false,
 };
 
 
@@ -121,7 +121,6 @@ const fieldReducer = (state = initialState, action) => {
             const loadedState = JSON.parse(localStorage.getItem('lastState'));
             return (loadedState !== null) ? {...state, ...loadedState} : state;
         }
-
         case RESET_BEST_SCORE: {
             const bestScore = 0;
             const top10 = [];

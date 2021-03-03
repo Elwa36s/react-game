@@ -1,6 +1,6 @@
 import {UP, DOWN, LEFT, RIGHT, INIT_GAME, CHECK_LOSE, CHECK_SCORE,
      CHECK_WIN, LOAD_LAST_GAME, SETTINGS, MUTE_SOUND, SHOW_SCORE,
-     RESET_BEST_SCORE} from './actionType'
+     RESET_BEST_SCORE, FULLSCREEN} from './actionType'
 
 function moveUp(){
     return {
@@ -80,6 +80,12 @@ function leaderBoard(){
 function resetScore(){
     return {
         type: RESET_BEST_SCORE,
+    }
+}
+
+function fullscreen(){
+    return {
+        type: FULLSCREEN,
     }
 }
 

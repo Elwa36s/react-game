@@ -4,6 +4,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #d1caca;
   min-width: 400px;
+  height: 100%;
 }
-
+html{
+  width: 100% ;
+}
+#root{
+height: 100%;
+}
 

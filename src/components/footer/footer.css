@@ -6,6 +6,10 @@ a, a:hover, a:focus, a:active {
     cursor: pointer;
     font-weight: bold;
   }
+  footer{
+    margin-top: 3%;
+    flex: 0 0 auto;
+  }
   #information{
     height: 100px;
     margin: 0 auto;
@@ -30,6 +34,6 @@ transform: scale(1.1);
   }
   #me:hover{
     transform: scale(1.1);
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 2px 2px 3px black;
     cursor: pointer;
   }

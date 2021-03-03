@@ -11,3 +11,4 @@ export const SETTINGS = 'SETTINGS';
 export const SHOW_SCORE = 'SHOW_SCORE';
 export const MUTE_SOUND = 'MUTE_SOUND';
 export const RESET_BEST_SCORE = 'RESET_BEST_SCORE';
+export const FULLSCREEN = 'FULLSCREEN';
