@@ -24,7 +24,8 @@ button:active{
     box-shadow: none;
 }
 #btns {
-margin: 2% auto;
+margin: 0 auto;
+margin-bottom: 1%;
 width: 400px;
 display: flex;
 flex-direction: row;
